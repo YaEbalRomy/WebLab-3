@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://java.sun.com/jstl/core">
+<f:view>
+    <h:head>
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="style/style.css"/>
+        <link rel="stylesheet" type="text/css" href="style/startPage.css"/>
+    </h:head>
+    <h:body>
+        <div class="mainContainer">
+            <div class="header">
+                <div class="headerContainer">
+                    <div>
+                        <span>Афанасьев Даниил Олегович</span>
+                    </div>
+                    <div class="welcomeToMainPage" style="display:flex; justify-content: center; align-items: center;">
+                        <h:button style="border: 2px solid whitesmoke; font-family: fantasy;" class="buttonToMainPage"
+                                  outcome="index" value="Перейти на стартовую страницу"/>
+                    </div>
+                    <div style="text-align: end">
+                        <span>P32311</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="container">
+                    <div class="cardContainer">
+                        <div class="cardGraph">
+                            <h:form id="graph">
+                                <svg id="pointGraph" class="graph" width="400" height="400"
+                                     onclick="setPoint(this, event)">
+                                    <line x1="0" x2="400" y1="200" y2="200" stroke="black"></line>
+                                    <text x="385" y="185">X</text>
+                                    <polygon points="400,200 385,206 385,194" stroke="black"></polygon>
+                                    <line x1="270" x2="270" y1="207" y2="193" stroke="black"></line>
+                                    <text x="260" y="185">#{pointsBean.graphR}/2</text>
+                                    <line x1="340" x2="340" y1="207" y2="193" stroke="black"></line>
+                                    <text x="335" y="185">#{pointsBean.graphR}</text>
+                                    <line x1="130" x2="130" y1="207" y2="193" stroke="black"></line>
+                                    <text x="120" y="185">-#{pointsBean.graphR}/2</text>
+                                    <line x1="60" x2="60" y1="207" y2="193" stroke="black"></line>
+                                    <text x="55" y="185">-#{pointsBean.graphR}</text>
+                                    <line x1="200" x2="200" y1="0" y2="400" stroke="black"></line>
+                                    <text x="215" y="15">Y</text>
+                                    <polygon points="200,0 194,15 206,15" stroke="black"></polygon>
+                                    <line x1="207" x2="193" y1="270" y2="270" stroke="black"></line>
+                                    <text x="215" y="275">-#{pointsBean.graphR}/2</text>
+                                    <line x1="207" x2="193" y1="340" y2="340" stroke="black"></line>
+                                    <text x="215" y="345">-#{pointsBean.graphR}</text>
+                                    <line x1="207" x2="193" y1="130" y2="130" stroke="black"></line>
+                                    <text x="215" y="135">#{pointsBean.graphR}/2</text>
+                                    <line x1="207" x2="193" y1="60" y2="60" stroke="black"></line>
+                                    <text x="215" y="65">#{pointsBean.graphR}</text>
+                                    <rect class="figure" x="60" y="200" height="140" width="140" fill="red"
+                                          fill-opacity="0.2"
+                                          stroke="red"></rect>
+                                    <polygon class="figure" points="200,60 60,200 200,200" fill="red" fill-opacity="0.4"
+                                             stroke="red"></polygon>
+                                    <path class="figure" d="M200 200 L 335 200 C 360 200 310 340 200 340"
+                                          fill-opacity="0.3"
+                                          stroke="red" fill="red"></path>
+                                    <circle id="pointer" r="3" cx="200" cy="200" fill="red" stroke="firebrick"/>
+                                    <c:forEach var="bean" items="${pointsBean.pointsCollection}">
+                                        <c:if test="${bean.result.equals('true')}">
+                                            <circle r="3" cx="${bean.x * 140 / bean.r + 200}"
+                                                    cy="${bean.y * -140 / bean.r + 200}" fill="red" stroke="firebrick"/>
+                                        </c:if>
+                                        <c:if test="${bean.result.equals('false')}">
+                                            <circle r="3" cx="${bean.x * 140 / bean.r + 200}"
+                                                    cy="${bean.y * - 140 / bean.r + 200}" fill="black"
+                                                    stroke="firebrick"/>
+                                        </c:if>
+                                    </c:forEach>
+                                </svg>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="cardContainer">
+                        <div class="cardForm">
+                            <div>
+                                <h:form>
+                                    <div class="form-group">
+                                        <p>Y:</p>
+                                        <h:inputText
+                                                a:id="y"
+                                                id="y"
+                                                styleClass="form-input"
+                                                value="0">
+                                        </h:inputText>
+                                    </div>
+                                    <div class="" style="align-items: center; justify-content: center">
+                                        <div>
+                                            <p>X:</p>
+                                            <div>
+                                                <p:outputLabel for="@next"/>
+                                                <p:spinner id="x"
+                                                           value="0"
+                                                           widgetVar="x"
+                                                           stepFactor="0.1"
+                                                           max="5.0"
+                                                           min="-5.0"/>
+                                            </div>
+                                            <br/>
+                                        </div>
+                                        <div>
+                                            <p>R:</p>
+                                            <div>
+                                                <p:outputLabel for="@next"/>
+                                                <p:spinner id="r"
+                                                           value="#{pointsBean.graphR}"
+                                                           widgetVar="r"
+                                                           onchange="changeR()"
+                                                           stepFactor="0.1"
+                                                           max="5.0"
+                                                           min="2.0"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-submit">
+
+                                        <h:commandButton style="
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    background: rgba(255, 0, 0, 0.3);
+    width: 100px;
+    height: 30px;
+    transition: 0.3s;" type="submit" value="RESET" onclick="buttonReset(event)"/>
+                                        <h:commandButton style="
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    background: rgba(255, 0, 0, 0.3);
+    width: 100px;
+    height: 30px;
+    transition: 0.3s;" type="submit" value="SUBMIT" onclick="buttonSubmit(event)"/>
+
+                                        <p:remoteCommand name="start" process="@this" update="result-table, graph"
+                                                         actionListener="#{pointsBean.uploadPoints()}"/>
+                                        <p:remoteCommand name="reset" process="@this" update="result-table, graph"
+                                                         actionListener="#{pointsBean.clear()}"/>
+                                        <p:remoteCommand name="submit" process="@this" update="result-table, graph"
+                                                         actionListener="#{pointsBean.submitPoints()}"/>
+                                        <p:remoteCommand name="graphr" process="@this" update="graph"
+                                                         actionListener="#{pointsBean.setGraphR()}"/>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                        <div class="infoCard">
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tableContainer">
+                        <div class="table">
+                            <div class="scroll">
+                                <h:dataTable id="result-table" var="point" value="#{pointsBean.pointsCollection}">
+
+                                    <h:column>
+                                        <f:facet name="header">Y</f:facet>
+                                        <div style="background-color: white; text-align: center">${point.y}</div>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">X</f:facet>
+                                        <div style="background-color: white; text-align: center">${point.x}</div>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">R</f:facet>
+                                        <div style="background-color: white; text-align: center">${point.r}</div>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">RESULT</f:facet>
+                                        <div style="background-color: white; text-align: center">${point.result}</div>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">TIME</f:facet>
+                                        <div style="background-color: white; text-align: center">${point.time}</div>
+                                    </h:column>
+
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"/>
+        <script type="text/javascript">
+            let point;
+
+            window.onload = funOnLoad;
+
+            function funOnLoad() {
+                start()
+            }
+
+            function setPoint(p, e) {
+                point = p.getBoundingClientRect();
+                if (PrimeFaces.widgets["r"].value !== undefined) {
+                    sendClick(e, PrimeFaces.widgets["r"].value)
+                }
+            }
+
+            function sendClick(e, r) {
+                let xVal = e.clientX - point.left
+                let yVal = e.clientY - point.top
+                let x = (((xVal - 200) * r) / 140).toFixed(1)
+                let y = (((200 - yVal) * r) / 140).toFixed(1)
+
+                checkValue(y, x, r)
+            }
+
+            function buttonReset(event) {
+                event.preventDefault()
+                reset();
+            }
+
+            function buttonSubmit(event) {
+
+                let yC = document.getElementById('y').value
+                let xC = PrimeFaces.widgets['x'].value
+                let rC = PrimeFaces.widgets['r'].value
+
+                checkValue(yC, xC, rC, event);
+                event.preventDefault();
+            }
+
+            function checkValue(y, x, r) {
+                if (!y) {
+                    showError('Y пуст')
+                } else if (isNaN(y)) {
+                    showError('Y это число')
+                } else if (-5 > y || y > 5) {
+                    showError('Y [-5;5]')
+                } else {
+                    submit([
+                        {name: 'y', value: y},
+                        {name: 'x', value: x},
+                        {name: 'r', value: r}
+                    ]);
+                    $('.infoCard').css({"opacity": "0"})
+                }
+            }
+
+
+            function changeR() {
+                let r = PrimeFaces.widgets['r'].value
+                graphr([{name: 'r', value: r}])
+            }
+
+
+            function showError(message) {
+                $('.infoCard').css({"opacity": "1"})
+                $('.infoCard div').text(message)
+            }
+
+        </script>
+    </h:body>
+</f:view>
+</html>

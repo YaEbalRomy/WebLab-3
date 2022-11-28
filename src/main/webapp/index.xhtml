@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <head>
+        <title>Start Page WebLab3</title>
+
+        <link rel="stylesheet" type="text/css" href="style/startPage.css"/>
+        <link rel="stylesheet" type="text/css" href="style/style.css"/>
+
+    </head>
+    <body>
+    <div class="header">
+        <div class="headerContainer">
+            <div>
+                <span>Афанасьев Даниил Олегович</span>
+            </div>
+            <div style="text-align: center">
+                <span>Вариант 29922</span>
+            </div>
+            <div style="text-align: end">
+                <span>P32311</span>
+            </div>
+        </div>
+    </div>
+    <div style="display:flex; justify-content: center; align-items: center; height: calc(100vh - 300px)">
+        <div>
+            <div class="clock"/>
+            <div class="day"/>
+            <div class="welcomeToMainPage">
+                <h:button style="font-family: fantasy;" class="buttonToMainPage" outcome="mainPage" value="Перейти на основную страницу"/>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/watch.js"></script>
+    </body>
+</f:view>
+</html>
